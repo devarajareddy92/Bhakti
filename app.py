@@ -1,43 +1,40 @@
-from flask import Flask, render_template, request, redirect, url_for
-import mysql.connector
+def add(x, y):
+    return x + y
 
-app = Flask(__name__)
+def subtract(x, y):
+    return x - y
 
-# Connect to MySQL database
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="root",
-    database="valli"
-)
+def multiply(x, y):
+    return x * y
 
-# Login route
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+def divide(x, y):
+    if y == 0:
+        return "Error! Division by zero."
+    else:
+        return x / y
 
-        # Query database for admin user
-        cursor = db.cursor()
-        cursor.execute("SELECT * FROM users WHERE username = 'admin'")
-        user = cursor.fetchone()
+print("Select operation:")
+print("1. Add")
+print("2. Subtract")
+print("3. Multiply")
+print("4. Divide")
 
-        if user and user[2] == password:  # user[2] corresponds to the password column in the users table
-            # Redirect to admin dashboard on successful login
-            return redirect(url_for('admin_dashboard'))
-        else:
-            # Display error message for invalid credentials
-            error_message = "Invalid username or password. Please try again."
-            return render_template('login.html', error_message=error_message)
+while True:
+    choice = input("Enter choice (1/2/3/4): ")
 
-    # Render login form for GET requests
-    return render_template('login.html')
+    if choice in ('1', '2', '3', '4'):
+        num1 = float(input("Enter first number: "))
+        num2 = float(input("Enter second number: "))
 
-# Admin dashboard route
-@app.route('/admin')
-def admin_dashboard():
-    return "Welcome, admin!"
-
-if __name__ == "__main__":
-    app.run(debug=True)
+        if choice == '1':
+            print("Result:", add(num1, num2))
+        elif choice == '2':
+            print("Result:", subtract(num1, num2))
+        elif choice == '3':
+            print("Result:", multiply(num1, num2))
+        elif choice == '4':
+            print("Result:", divide(num1, num2))
+        
+        break
+    else:
+        print("Invalid input")
