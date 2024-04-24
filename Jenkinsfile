@@ -13,7 +13,7 @@ pipeline {
             steps {
                 // Build the Docker image
                 script {
-                    docker.build('my-python-app')
+                    docker.build('my-python-app1')
                 }
             }
         }
@@ -22,7 +22,7 @@ pipeline {
             steps {
                 // Run the Docker container based on the built image
                 script {
-                    docker.image('my-python-app').run('-d', '-p', '5000:5000', 'my-python-app')
+                    docker.image('my-python-app1').run('-d', '-p', '5000:5000', 'my-python-app1')
                 }
             }
         }
