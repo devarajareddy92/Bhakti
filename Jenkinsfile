@@ -34,8 +34,8 @@ pipeline {
         always {
             // Clean up: Stop and remove the Docker container
             script {
-                docker.image('my-python-app').stop()
-                docker.image('my-python-app').remove()
+                docker.image('my-python-app1').stop()
+                docker.image('my-python-app1').remove()
             }
         }
     }
