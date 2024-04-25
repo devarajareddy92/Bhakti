@@ -2,39 +2,35 @@ pipeline {
     agent any
 
     stages {
-         stage('Checkout') {
+        stage('Checkout') {
             steps {
                 checkout([$class: 'GitSCM', branches: [[name: 'main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/devarajareddy92/Bhakti.git']]])
             }
         }
-        
 
         stage('Build Docker Image') {
             steps {
-                // Build the Docker image
                 script {
+                    // Build the Docker image
                     docker.build('my-python-app1')
                 }
             }
         }
 
-       stage('Run Docker Container') {
-    steps {
-        // Run the Docker container based on the built image
-        script {
-            docker.image('my-python-app1').run('-d', '-p', '5000:5000')
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    // Run the Docker container based on the built image
+                    docker.image('my-python-app1').run('-d', '-p', '5000:5000')
+                }
+            }
         }
-    }
-}
-
-
-       
     }
 
     post {
         always {
-            // Clean up: Stop and remove the Docker container
             script {
+                // Clean up: Stop and remove the Docker container
                 docker.image('my-python-app1').stop()
                 docker.image('my-python-app1').remove()
             }
