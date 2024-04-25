@@ -10,5 +10,9 @@ COPY requirements.txt /app
 # Install dependencies using pip
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the application code into the container
+COPY . /app
+
 # Run the Python script when the container starts
 CMD ["python", "app.py"]
+
