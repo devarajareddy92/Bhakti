@@ -18,14 +18,15 @@ pipeline {
             }
         }
 
-        stage('Run Docker Container') {
-            steps {
-                // Run the Docker container based on the built image
-                script {
-                    docker.image('my-python-app1').run('-d', '-p', '5000:5000', 'my-python-app1')
-                }
-            }
+       stage('Run Docker Container') {
+    steps {
+        // Run the Docker container based on the built image
+        script {
+            docker.image('my-python-app1').run('-d', '-p', '5000:5000')
         }
+    }
+}
+
 
        
     }
